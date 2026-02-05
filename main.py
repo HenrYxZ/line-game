@@ -1,16 +1,18 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+from pudu_ui import App
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+8 to toggle the breakpoint.
+from controller import GameController
 
 
-# Press the green button in the gutter to run the script.
+APP_NAME = "Line Game"
+
+
+
+# app = App(width=SCREEN_WIDTH, height=SCREEN_HEIGHT, caption=APP_NAME)
+app = App(caption=APP_NAME)
+controller = GameController(app)
+
+
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    print(app.width, app.height)
+    app.run()

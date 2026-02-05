@@ -1,6 +1,7 @@
 from pudu_ui import Screen
 
 
+from constants import SCREEN_HEIGHT
 from game import get_random_tokens, Game
 from widgets import InfoLabel
 
@@ -23,8 +24,8 @@ class PlayScreen(Screen):
             self.game.swap(0, 9)
 
         # Init UI
-        time_label_x = 50
-        time_label_y = 50
+        time_label_x = 250
+        time_label_y = SCREEN_HEIGHT - 50
         self.time_label = InfoLabel(
             x=time_label_x, y=time_label_y, text=format_time(self.game.time),
             batch=self.batch
