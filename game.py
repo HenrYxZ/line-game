@@ -27,13 +27,18 @@ class Game:
     time: float
     player_name: str
 
+    def get_count(self):
+        count = 0
+        n = len(self.tokens)
+        for i in range(n):
+            if self.tokens[i].color == self.original_tokens[i].color:
+                count += 1
+        return count
+
     def is_solved(self):
         n = len(self.tokens)
         for i in range(n):
-            if (
-                self.tokens[i].color.as_vec3() !=
-                self.original_tokens[i].color.as_vec3()
-            ):
+            if self.tokens[i].color != self.original_tokens[i].color:
                 return False
         return True
 
