@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from pudu_ui.colors import (
     Color,
-    ORANGE, RED, YELLOW, GREEN, BLUE_GREEN, BLUE, PURPLE, VIOLET, BLACK, WHITE
+    GRAY, ORANGE, RED, YELLOW, GREEN, BLUE_GREEN, BLUE, PURPLE, VIOLET, BLACK
 )
 import random
 
@@ -51,7 +51,7 @@ class Game:
 def get_colors() -> list[Color]:
     return [
         ORANGE, RED, YELLOW, GREEN, BLUE_GREEN, BLUE, PURPLE, VIOLET, BLACK,
-        WHITE
+        GRAY
     ]
 
 
