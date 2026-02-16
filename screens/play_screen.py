@@ -3,7 +3,7 @@ from pudu_ui import Screen
 
 from constants import SCREEN_HEIGHT, SCREEN_WIDTH
 from game import get_random_tokens, Game
-from widgets import InfoLabel
+from widgets import InfoLabel, TokenList, TokenWidget
 
 
 def format_time(time: float) -> str:
@@ -24,6 +24,9 @@ class PlayScreen(Screen):
             self.game.swap(0, 9)
 
         # Init UI
+
+        # Labels
+
         labels_y = SCREEN_HEIGHT - 50
         time_label_x = 250
         self.time_label = InfoLabel(
@@ -43,3 +46,12 @@ class PlayScreen(Screen):
             x=done_label_x, y=labels_y, text=f"{count}/{len(self.game.tokens)}",
             batch=self.batch
         )
+
+        # Tokens
+
+        self.token_listlayout = TokenList(batch=self.batch)
+        for token in tokens:
+            token_widget = TokenWidget(color=token.color, batch=self.batch)
+            self.token_listlayout.add(token_widget)
+
+        self.widgets.append(self.token_listlayout)

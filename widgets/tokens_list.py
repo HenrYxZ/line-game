@@ -13,7 +13,7 @@ LIST_Y = SCREEN_HEIGHT / 2 - LIST_HEIGHT / 2
 
 
 class TokenList(ListLayout):
-    def __init__(self, batch: Batch):
+    def __init__(self, batch: Batch | None = None):
         params = ListLayoutParams(
             x=LIST_X, y=LIST_Y, width=LIST_WIDTH, height=LIST_HEIGHT,
             inter_item_spacing=INTER_ITEM_SPACING
