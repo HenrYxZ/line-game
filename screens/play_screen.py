@@ -40,11 +40,8 @@ class PlayScreen(Screen):
             token_widget = TokenWidget(color=token.color, batch=self.batch)
             self.token_listlayout.add(token_widget)
 
-        # DEBUGGING: REMOVE THIS LATER
-        self.token_listlayout.children[1].focus()
-        self.token_listlayout.children[2].select()
-        self.token_listlayout.children[3].hover()
-
         self.widgets.append(self.token_listlayout)
         self.widgets.append(self.time_label)
         self.widgets.append(self.done_label)
+
+        self.token_listlayout.focus()
