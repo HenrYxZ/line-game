@@ -1,14 +1,16 @@
 from pudu_ui import App, Controller
 
 
-from screens import PlayScreen
-
+from controllers import PlayController
 
 class GameController(Controller):
     def __init__(self, app: App):
         super().__init__(app, 'GameController')
-        self.play('Player Name')
+        self.current_controller = None
+        self.play()
 
-    def play(self, player_name: str):
-        play_screen = PlayScreen(player_name=player_name)
-        self.app.set_screen(play_screen)
+    def play(self):
+        self.current_controller = PlayController(app=self.app)
+
+    def update(self, dt: float):
+        self.current_controller.update(dt)

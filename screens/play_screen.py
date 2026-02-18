@@ -2,27 +2,14 @@ from pudu_ui import Screen
 
 
 from constants import SCREEN_HEIGHT, SCREEN_WIDTH
-from game import get_random_tokens, Game
+from game import Game
 from widgets import InfoLabel, TokenList, TokenWidget
-
-
-def format_time(time: float) -> str:
-    minutes, seconds = divmod(time, 60)
-    return "%02d:%02d" % (minutes, seconds)
+from utils import format_time
 
 
 class PlayScreen(Screen):
-    def __init__(self, player_name: str):
+    def __init__(self, game: Game, player_name: str):
         super().__init__('PlayScreen')
-        # Init Game
-        tokens = get_random_tokens()
-        original_tokens = get_random_tokens()
-        start_time = 0.0
-        self.game = Game(tokens, original_tokens, start_time, player_name)
-        if self.game.is_solved():
-            # ensure game is not solved
-            self.game.swap(0, 9)
-
         # Init UI
 
         # Labels
@@ -30,7 +17,7 @@ class PlayScreen(Screen):
         labels_y = SCREEN_HEIGHT - 50
         time_label_x = 250
         self.time_label = InfoLabel(
-            x=time_label_x, y=labels_y, text=format_time(self.game.time),
+            x=time_label_x, y=labels_y, text=format_time(game.time),
             batch=self.batch
         )
 
@@ -40,18 +27,24 @@ class PlayScreen(Screen):
             batch=self.batch
         )
 
-        count = self.game.get_count()
+        count = game.get_count()
         done_label_x = SCREEN_WIDTH - time_label_x
         self.done_label = InfoLabel(
-            x=done_label_x, y=labels_y, text=f"{count}/{len(self.game.tokens)}",
+            x=done_label_x, y=labels_y, text=f"{count}/{len(game.tokens)}",
             batch=self.batch
         )
 
         # Tokens
-
         self.token_listlayout = TokenList(batch=self.batch)
-        for token in tokens:
+        for token in game.tokens:
             token_widget = TokenWidget(color=token.color, batch=self.batch)
             self.token_listlayout.add(token_widget)
 
+        # DEBUGGING: REMOVE THIS LATER
+        self.token_listlayout.children[1].focus()
+        self.token_listlayout.children[2].select()
+        self.token_listlayout.children[3].hover()
+
         self.widgets.append(self.token_listlayout)
+        self.widgets.append(self.time_label)
+        self.widgets.append(self.done_label)
