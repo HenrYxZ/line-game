@@ -1,4 +1,4 @@
-from pudu_ui import Controller
+from pudu_ui import App, Controller
 
 
 from game import Game, get_random_tokens
@@ -7,6 +7,13 @@ from utils import format_time
 
 
 class PlayController(Controller):
+    def __init__(self, app: App, name: str):
+        super().__init__(app=app, name=name)
+        self.selected_token_idx = None
+        self.game = None
+        self.screen = None
+
+
     def on_load(self):
         super().on_load()
         # Init Game
@@ -14,7 +21,7 @@ class PlayController(Controller):
         original_tokens = get_random_tokens()
         start_time = 0.0
         player_name = "Player Name"
-        self.selected_token_idx = None
+
         self.game = Game(tokens, original_tokens, start_time, player_name)
         if self.game.is_solved():
             # ensure game is not solved
