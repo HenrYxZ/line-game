@@ -1,18 +1,20 @@
 from pudu_ui import App, Controller
+from pudu_ui.navigation import Navigator
 
 
+from constants import PLAY
 from game import Game, get_random_tokens
 from screens import PlayScreen
 from utils import format_time
 
 
 class PlayController(Controller):
-    def __init__(self, app: App, name: str):
-        super().__init__(app=app, name=name)
+    def __init__(self, app: App, navigator: Navigator):
         self.selected_token_idx = None
         self.game = None
         self.screen = None
-
+        super().__init__(app=app, name=PLAY)
+        self.navigator = navigator
 
     def on_load(self):
         super().on_load()
