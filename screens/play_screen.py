@@ -13,7 +13,6 @@ class PlayScreen(Screen):
         # Init UI
 
         # Labels
-
         labels_y = SCREEN_HEIGHT - 50
         time_label_x = 250
         self.time_label = InfoLabel(

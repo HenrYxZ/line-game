@@ -89,6 +89,10 @@ class TokenWidget(Frame):
         # HACK
         self.is_on_focus = False
         self.on_unselect()
+    
+    def unfocus(self):
+        if not self.is_selected:
+            super().unfocus()
 
     # Override function
     def on_mouse_press(self, x, y, buttons, _):
