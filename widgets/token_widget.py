@@ -1,3 +1,4 @@
+from collections.abc import Callable
 from copy import copy
 from pudu_ui import Color, Frame
 from pudu_ui.colors import WHITE, DARK_RED
@@ -19,11 +20,13 @@ TOKEN_BORDER_RADIUS = 12
 class TokenWidget(Frame):
     def __init__(
         self, color: Color = DEFAULT_TOKEN_COLOR,
+        on_select_callback: Callable[[int], None] = lambda l: None,
         batch: Batch | None = None
     ):
         super().__init__(batch=batch)
         self.is_focusable = True
         self.is_selected = False
+        self.on_select_callback = on_select_callback
 
         unfocused_border_width = 0
         unfocused_border_color = WHITE
@@ -83,12 +86,14 @@ class TokenWidget(Frame):
         # HACK
         self.is_on_focus = True
         self.on_select()
+        self.on_select_callback(self.index)
 
     def unselect(self):
         self.is_selected = False
         # HACK
         self.is_on_focus = False
         self.on_unselect()
+        self.on_select_callback(self.index)
     
     def unfocus(self):
         if not self.is_selected:

@@ -1,3 +1,4 @@
+from collections.abc import Callable
 from pudu_ui import Screen
 
 
@@ -8,7 +9,13 @@ from utils import format_time
 
 
 class PlayScreen(Screen):
-    def __init__(self, game: Game, player_name: str):
+    def __init__(
+        self,
+        game: Game,
+        player_name: str,
+        on_select_callback: Callable[[int], None] = lambda l: None,
+        on_unselect_callback: Callable[[int], None] = lambda l: None
+    ):
         super().__init__('PlayScreen')
         # Init UI
 
@@ -36,7 +43,11 @@ class PlayScreen(Screen):
         # Tokens
         self.token_listlayout = TokenList(batch=self.batch)
         for token in game.tokens:
-            token_widget = TokenWidget(color=token.color, batch=self.batch)
+            token_widget = TokenWidget(
+                color=token.color,
+                on_select_callback=on_select_callback,
+                batch=self.batch
+            )
             self.token_listlayout.add(token_widget)
 
         self.widgets.append(self.token_listlayout)

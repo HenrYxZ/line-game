@@ -29,9 +29,11 @@ class PlayController(Controller):
             # ensure game is not solved
             self.game.swap(0, 9)
 
-        self.screen = PlayScreen(game=self.game, player_name=player_name)
+        self.screen = PlayScreen(
+            game=self.game, player_name=player_name,
+            on_select_callback=self.on_select_token
+        )
         self.app.set_screen(self.screen)
-        self.screen.token_listlayout.on_select_callback = self.on_select_token
 
     def update(self, dt: float):
         if self.game.is_solved():
@@ -48,6 +50,13 @@ class PlayController(Controller):
             return
 
         if self.selected_token_idx is not None:
+            if self.selected_token_idx == idx:
+                # If we select a token again we want to unselect them
+                self.selected_token_idx = None
+                return
+
+            # Here we have a previously selected token and a new token
+
             # Swap tokens
             i = self.selected_token_idx
             j = idx
