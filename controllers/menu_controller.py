@@ -1,6 +1,6 @@
 from pudu_ui.navigation import Navigator
 from pudu_ui import App, Button, Controller
-
+import pyglet.app
 
 from constants import MENU, PLAY
 from screens import MenuScreen
@@ -11,7 +11,11 @@ class MenuController(Controller):
         super().__init__(app=app, name=MENU)
         self.navigator = navigator
         self.button_maps = [
-            self.play
+            self.play,
+            self.edit_name,
+            self.scores,
+            self.settings,
+            self.exit
         ]
 
     def on_load(self):
@@ -28,6 +32,18 @@ class MenuController(Controller):
 
     def play(self):
         self.navigator.change(PLAY)
+
+    def edit_name(self):
+        pass
+
+    def scores(self):
+        pass
+
+    def settings(self):
+        pass
+
+    def exit(self):
+        pyglet.app.exit()
 
     def update(self, dt: float):
         pass
